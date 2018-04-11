@@ -11,6 +11,12 @@ public class Ques {
         this.order = order;
         this.type_id = type_id;
     }
+    public Ques(String body,int order,int type_id,Boolean isN){
+        this.body = body;
+        this.order = order;
+        this.type_id = type_id;
+        isnecessary=isN;
+    }
 
     public int getOrder() {
         return order;

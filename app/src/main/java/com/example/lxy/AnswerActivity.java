@@ -51,7 +51,7 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         lv = (ListView)findViewById(R.id.answerlist);
-        ques_adapter = new QuestionAdapter(test_qlist(),this,lv);
+        ques_adapter = new QuestionAdapter(test_qlist(),this);
 
         lv.setAdapter(ques_adapter);
 

@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if(menuItem.getTitle().equals("编辑")){
                             Intent intent2 = new Intent(MainActivity.this,EditActivity.class);
+
                             startActivity(intent2);
 
                         }

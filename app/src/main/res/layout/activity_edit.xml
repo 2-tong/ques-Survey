@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".EditActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/add_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="单选" />
+
+        <Button
+            android:id="@+id/add_multiple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="多选" />
+
+        <Button
+            android:id="@+id/add_essay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="问答" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/editlist"
         android:layout_width="wrap_content"
@@ -13,32 +40,5 @@
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/single"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="单选" />
-
-        <Button
-            android:id="@+id/multiple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="多选" />
-
-        <Button
-            android:id="@+id/essay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="问答" />
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

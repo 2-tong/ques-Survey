@@ -29,12 +29,11 @@ import static android.content.ContentValues.TAG;
 public class QuestionAdapter extends BaseAdapter {
 
 
-    private LinkedList<Ques> qlist;
-    private ListView listView;
+    protected LinkedList<Ques> qlist;
     private Map<Integer,Integer> answermap;
     private Map<Integer,Boolean> multianswermap;
     private Map<Integer,String> essaymap;
-    private Context context;
+    protected Context context;
     private int index=-1;
 
 
@@ -87,10 +86,9 @@ public class QuestionAdapter extends BaseAdapter {
         return alist;
     }
 
-    public QuestionAdapter(LinkedList<Ques> qlist, Context context,ListView listView) {
+    public QuestionAdapter(LinkedList<Ques> qlist, Context context) {
         this.qlist = qlist;
         this.context = context;
-        this.listView = listView;
         this.answermap= new HashMap<Integer, Integer>();
         this.multianswermap= new HashMap<>();
         this.essaymap=new HashMap<>();
