@@ -14,7 +14,7 @@ public class AnswerActivity extends AppCompatActivity {
 
      ListView lv;
      QuestionAdapter ques_adapter;
-    private LinkedList<Ques> test_qlist(){
+    private LinkedList<Ques> create_a_test_qlist(){
 
         LinkedList<Ques> ls = new LinkedList<>();
         ls.add(new Ques("第一题",0,0));
@@ -51,7 +51,7 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         lv = (ListView)findViewById(R.id.answerlist);
-        ques_adapter = new QuestionAdapter(test_qlist(),this);
+        ques_adapter = new QuestionAdapter(create_a_test_qlist(),this);
 
         lv.setAdapter(ques_adapter);
 

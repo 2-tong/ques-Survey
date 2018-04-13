@@ -30,11 +30,11 @@ public class QuestionAdapter extends BaseAdapter {
 
 
     protected LinkedList<Ques> qlist;
-    private Map<Integer,Integer> answermap;
-    private Map<Integer,Boolean> multianswermap;
-    private Map<Integer,String> essaymap;
+    protected Map<Integer,Integer> answermap;
+    protected Map<Integer,Boolean> multianswermap;
+    protected Map<Integer,String> essaymap;
     protected Context context;
-    private int index=-1;
+    protected int index=-1;
 
 
     public LinkedList<Answer> Get_Answer(){
@@ -133,7 +133,7 @@ public class QuestionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        final ViewHolder viewHolder ;
+        ViewHolder viewHolder ;
         final int pos=i;
         if(i==qlist.size()){
             Button button = new Button(context);

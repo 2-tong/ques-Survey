@@ -7,7 +7,7 @@ public class ChoiceQues extends Ques {
 
     public ChoiceQues(String body,int order,int type_id,LinkedList<String> option) {
         super(body,order,type_id);
-        this.option = option;
+        this.option = new LinkedList<>(option);
     }
 
     public int getoptioncount(){

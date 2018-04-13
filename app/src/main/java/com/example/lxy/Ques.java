@@ -4,7 +4,7 @@ public class Ques {
     protected String body;
     protected int order;
     protected int type_id;
-    private Boolean isnecessary=true;
+    protected Boolean isnecessary=true;
 
     public Ques(String body,int order,int type_id){
         this.body = body;

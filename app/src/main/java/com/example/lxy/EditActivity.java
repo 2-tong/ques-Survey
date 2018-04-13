@@ -1,12 +1,17 @@
 package com.example.lxy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.LinkedList;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity
+        implements View.OnClickListener{
 
     ListView lv;
     EditAdapter edit_adapter;
@@ -45,10 +50,47 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        Intent intent = getIntent();
+        if((intent.getIntExtra("surveyID",-1))==-1){
+            edit_adapter = new EditAdapter(new LinkedList<Ques>(),this);
+        }
+        else
+            edit_adapter = new EditAdapter(test_qlist(),this);
+        Button single =(Button)findViewById(R.id.add_single);
+        Button multi =(Button)findViewById(R.id.add_multiple);
+        Button essay =(Button)findViewById(R.id.add_essay);
+
+        single.setOnClickListener(this);
+        multi.setOnClickListener(this);
+        essay.setOnClickListener(this);
 
         lv = (ListView)findViewById(R.id.editlist);
-        edit_adapter = new EditAdapter(test_qlist(),this);
+
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                edit_adapter.editposition=i;
+                edit_adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+
 
         lv.setAdapter(edit_adapter);
+    }
+
+
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.add_essay)
+            edit_adapter.add_Newques(0);
+        else if(view.getId()==R.id.add_single)
+            edit_adapter.add_Newques(1);
+        else
+            edit_adapter.add_Newques(2);
+        lv.smoothScrollToPosition(edit_adapter.getCount()-1);
     }
 }

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         connector = new ServerConnector(handler);
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if(menuItem.getTitle().equals("编辑")){
                             Intent intent2 = new Intent(MainActivity.this,EditActivity.class);
-
+                            intent2.putExtra("surveyID",user.getSurvey_list().get(position).getTable_id());
                             startActivity(intent2);
 
                         }
