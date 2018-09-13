@@ -4,15 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/dlbj"
     tools:context=".Loginctivity">
-    <AutoCompleteTextView
+
+    <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="用户名"
+        android:hint="请输入手机号"
+        android:inputType="textPersonName"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,11 +26,14 @@
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="密码"
+        android:hint="请输入密码"
         android:inputType="textPassword"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -32,9 +41,13 @@
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="44dp"
-        android:text="登陆"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_button"
+        android:text="登录"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
@@ -43,7 +56,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
+        android:background="@drawable/round_button"
         android:text="注册"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/login"
         app:layout_constraintTop_toTopOf="@+id/login" />
 
@@ -51,9 +68,38 @@
         android:id="@+id/remberPsw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
+        android:buttonTint="#fe1c60"
+        android:checked="false"
+        android:duplicateParentState="false"
         android:text="记住密码"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="105dp"
+        android:background="?attr/colorBackgroundFloating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/u" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@mipmap/p" />
+
 
 </android.support.constraint.ConstraintLayout>

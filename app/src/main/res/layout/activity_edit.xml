@@ -7,37 +7,66 @@
     android:orientation="vertical"
     tools:context=".EditActivity">
 
+    <EditText
+        android:id="@+id/surveyname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="请输入问卷名"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/expect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="请输入期望的答卷数"
+            android:inputType="textPersonName"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/add_single"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="单选" />
+            android:background="@drawable/round_button"
+            android:text="添加单选"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/add_multiple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="多选" />
+            android:background="@drawable/round_button"
+            android:text="添加多选"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/add_essay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="问答" />
+            android:background="@drawable/round_button"
+            android:text="添加问答"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/editlist"
-        android:descendantFocusability="beforeDescendants"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants" />
 
 </LinearLayout>

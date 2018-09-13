@@ -24,21 +24,30 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="完成" />
+            android:background="@drawable/round_button"
+            android:text="完成编辑"
+            android:textColor="?attr/colorBackgroundFloating"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/essay_delete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="删除" />
+            android:background="@drawable/round_button"
+            android:text="删除"
+            android:textColor="?attr/colorBackgroundFloating"
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/essay_necessary"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="是否必答" />
+            android:text="必答题"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

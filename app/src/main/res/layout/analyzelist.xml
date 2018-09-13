@@ -3,21 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/option_name"
+    <TextView
+        android:id="@+id/order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:text="TextView" />
 
-    <Button
-        android:id="@+id/delete_option"
+    <TextView
+        android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/bound_line"
-        android:text="移除选项"
-        android:textColor="?attr/colorBackgroundFloating"
-        android:textStyle="bold" />
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TextView" />
+
 </LinearLayout>

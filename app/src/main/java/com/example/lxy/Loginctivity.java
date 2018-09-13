@@ -11,12 +11,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Loginctivity extends AppCompatActivity {
 
     private Button login;
     private Button register;
-    private AutoCompleteTextView username;
+    private EditText username;
     private EditText password;
     private CheckBox savePsw;
     private SharedPreferences SPset;
@@ -25,7 +27,7 @@ public class Loginctivity extends AppCompatActivity {
     private void initView(){
         login = (Button) findViewById(R.id.login);
         register = (Button)findViewById(R.id.register);
-        username = (AutoCompleteTextView)findViewById(R.id.username);
+        username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         savePsw  = (CheckBox)findViewById(R.id.remberPsw);
     }
@@ -33,14 +35,14 @@ public class Loginctivity extends AppCompatActivity {
     private void SavePSW(Boolean isSave,String psw){
 
         SharedPreferences.Editor editor= SPset.edit();
-
+        //向SharedPreferences.Editor对象中添加数据
         editor.putBoolean("REMEMBER",isSave);
         editor.putString("USERNAME",username.getText().toString());
         if(isSave)
             editor.putString("PASSWORD",psw);
         else
             editor.remove("PASSWORD");
-        editor.commit();
+        editor.commit();//将添加的数据提交
     }
 
     @Override
@@ -50,7 +52,7 @@ public class Loginctivity extends AppCompatActivity {
 
         initView();
 
-        SPset = getPreferences(MODE_PRIVATE);
+        SPset = getPreferences(MODE_PRIVATE);//只有当前的应用程序才可以对当前这个SharedPreferences文件进行读写
         username.setText(SPset.getString("USERNAME",""));
         if(SPset.getBoolean("REMEMBER",false))
             password.setText(SPset.getString("PASSWORD",""));
@@ -86,15 +88,20 @@ public class Loginctivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:{
-                    SavePSW(savePsw.isChecked(),password.getText().toString());
+                    if (msg.arg1 == -1){
+                        Toast.makeText(Loginctivity.this,"用户名或密码输入错误",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        SavePSW(savePsw.isChecked(), password.getText().toString());
 
-                    Intent intent = new Intent(Loginctivity.this,MainActivity.class);
-                    intent.putExtra("user_name",username.getText().toString());
-                    intent.putExtra("user_id",msg.arg1);
+                        Intent intent = new Intent(Loginctivity.this, MainActivity.class);
+                        intent.putExtra("user_name", username.getText().toString());
+                        intent.putExtra("user_id", msg.arg1);
 
-                    connector.looperquit();
+                        connector.looperquit();
 
-                    startActivity(intent);
+                        startActivity(intent);
+                    }
 
                     break;
                 }

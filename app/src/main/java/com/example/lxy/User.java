@@ -7,15 +7,10 @@ public class User {
     private int    userid;
     private LinkedList<Survey> Survey_list;
 
-    //private MyDB database;
 
     public User(int id, String name){
         userid = id;
         username = name;
-        //database = db;
-
-
-        //urvey_list = database.getSuryList(userid);
 
     }
 
@@ -29,5 +24,9 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public int getUserid() {
+        return userid;
     }
 }

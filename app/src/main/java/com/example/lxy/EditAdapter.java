@@ -2,6 +2,7 @@ package com.example.lxy;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Layout;
@@ -23,25 +24,31 @@ import java.util.LinkedList;
 
 import static android.content.ContentValues.TAG;
 
-
 public class EditAdapter extends QuestionAdapter {
 
-    public int editposition = 2;
+    Survey newSurvey;
+    ServerConnector serverConnector;
+    public int editposition=-1;
 
-    public EditAdapter(LinkedList<Ques> qlist, Context context) {
-        super(qlist, context);
+    public EditAdapter(LinkedList<Ques> qlist, Context context,Survey survey,ServerConnector serverConnector) {
+        super(qlist, context,serverConnector,survey.getTable_id());
+        this.newSurvey=survey;
+        this.serverConnector=serverConnector;
     }
 
-    public void add_Newques(int type) {
-        LinkedList<String> strs = new LinkedList();
+    /**
+     * 插入新题
+     **/
+    public void add_Newques(int type) {//
+        LinkedList<String> strs = new LinkedList();//默认给出两个选项
         strs.add("选项1");
         strs.add("选项2");
         if (type == 0) {
-            Ques q = new Ques("第" + qlist.size() + "题:", qlist.size(), type);
+            Ques q = new Ques("第" + (qlist.size()+1) + "题:", qlist.size(), type);
             qlist.add(q);
         } else
-            qlist.add(new ChoiceQues("第" + qlist.size() + "题:", qlist.size(), type, strs));
-        editposition=qlist.size()-1;
+            qlist.add(new ChoiceQues("第" + (qlist.size()+1) + "题:", qlist.size(), type, strs));
+        editposition=qlist.size()-1;//将编辑框加到新插入题的位置
         notifyDataSetChanged();
     }
 
@@ -57,46 +64,52 @@ public class EditAdapter extends QuestionAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup parent) {
-
-
-
+        Log.i(TAG, "getView_Edit: "+i);
         if ((i != editposition) && (i != qlist.size())){
-            view=super.getView(i, view, parent);
-            view.setFocusable(false);
+            view=super.getView(i, view, parent);//调用父类的getview方法
             return view;
         }
-        else if (i == qlist.size()) {
+        else if (getItemViewType(i)==2) {
+            //在最后添加一个完成编辑的按钮，提交保存问卷
             Button button1 = new Button(context);
-            button1.setText("完成编辑");
+            button1.setText("保存问卷");
+            button1.setBackgroundResource(R.drawable.round_bto);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Message message =new Message();
+                    message.what=ServerConnector.ADD_SURVEY;
+                    newSurvey.qlist=EditAdapter.this.qlist;
+                    message.obj=newSurvey;
+                    serverConnector.getMy_handler().sendMessage(message);
+                }
+            });
             return button1;
-
-        } else {
-
+        } else {//获取带编辑框类型的view
             LinearLayout ly;
-            if (view == null)
+            if (view == null)//当view为null时创建一个线性布局对象
                 ly = new LinearLayout(context);
-            else {
+            else {//否则复用上一个view
                 ly = (LinearLayout) view;
-                view.setFocusable(true);
             }
             ly.removeAllViews();
             ly.setOrientation(LinearLayout.VERTICAL);
-
-
             ly.addView(super.getView(i, null, null));
             ly.addView(getEditer(i));
-
             return ly;
         }
 
     }
 
+    /*
+    * 添加编辑框
+     */
     private View getEditer(int i) {
 
         final Ques ques = qlist.get(i);
         final int pos=i;
         View view = null;
-        switch (ques.type_id) {
+        switch (ques.type_id) {//为问答题添加编辑框
             case 0: {
                 view = View.inflate(context, R.layout.essay_editer, null);
                 final EditText edit_body = (EditText)view.findViewById(R.id.edit_body);
@@ -106,7 +119,7 @@ public class EditAdapter extends QuestionAdapter {
 
                 edit_body.setText(ques.body);
 
-                edit_body.addTextChangedListener(new TextWatcher() {
+                edit_body.addTextChangedListener(new TextWatcher() {//为问答题题目编辑设置监听
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -124,7 +137,7 @@ public class EditAdapter extends QuestionAdapter {
                 }
                 });
 
-                edit_body.setOnTouchListener(new View.OnTouchListener() {
+                edit_body.setOnTouchListener(new View.OnTouchListener() {//设置焦点
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
                         if(motionEvent.getAction() == MotionEvent.ACTION_UP)
@@ -136,21 +149,18 @@ public class EditAdapter extends QuestionAdapter {
                     edit_body.requestFocus();
                 }
 
-                finish.setOnClickListener(new View.OnClickListener() {
+                finish.setOnClickListener(new View.OnClickListener() {//设置点击完成这道题编辑的监听
                     @Override
                     public void onClick(View view) {
-                        //body.setText(qlist.get(pos).body);
                         editposition = -1;
-                        notifyDataSetChanged();
                         Toast.makeText(context, "已保存", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();//刷新
                     }
                 });
 
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("提示");
                         builder.setMessage("确定删除？");
@@ -165,11 +175,10 @@ public class EditAdapter extends QuestionAdapter {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 editposition = -1;
                                 qlist.remove(pos);
-                                notifyDataSetChanged();
                                 Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
                             }
                         }).show();
-
                     }
                 });
                 isn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -221,7 +230,7 @@ public class EditAdapter extends QuestionAdapter {
                         }
                     });
 
-                    ly.addView(view1);
+                    ly.addView(view1);//动态添加选择题的选项
                 }
 
                 edit_option.addTextChangedListener(new TextWatcher() {
@@ -252,9 +261,28 @@ public class EditAdapter extends QuestionAdapter {
                 delete_option.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        editposition=-1;
-                        qlist.remove(pos);
-                        notifyDataSetChanged();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("提示");
+                        builder.setMessage("确定删除？");
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                editposition = -1;
+                                qlist.remove(pos);
+                                Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                     }
                 });
 
@@ -262,8 +290,9 @@ public class EditAdapter extends QuestionAdapter {
                     @Override
                     public void onClick(View view) {
                         editposition = -1;
-                        notifyDataSetChanged();
                         Toast.makeText(context, "已保存", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+
                     }
                 });
                 isn_option.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -276,5 +305,4 @@ public class EditAdapter extends QuestionAdapter {
         }
         return view;
     }
-
 }

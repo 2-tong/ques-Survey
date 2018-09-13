@@ -65,14 +65,14 @@ public class SurveyAdapter extends BaseAdapter {
             viewHolder.collections=(TextView)convertView.findViewById(R.id.collections);
             viewHolder.status=(TextView)convertView.findViewById(R.id.status);
             viewHolder.surveyname=(TextView)convertView.findViewById(R.id.surveyname);
-            viewHolder.useday=(TextView)convertView.findViewById(R.id.useday);
+            viewHolder.post_time=(TextView)convertView.findViewById(R.id.post_time);
             convertView.setTag(viewHolder);
         }
         else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
         Survey s =list.get(position);
-        viewHolder.useday.setText(""+s.getUseday());
+        viewHolder.post_time.setText(s.getPost_time());
         viewHolder.surveyname.setText(s.getTable_name());
         viewHolder.status.setText(s.getStatus());
         viewHolder.collections.setText(""+s.getAnswer_count());
@@ -81,7 +81,7 @@ public class SurveyAdapter extends BaseAdapter {
 
     static class ViewHolder{
         TextView surveyname;
-        TextView useday;
+        TextView post_time;
         TextView status;
         TextView collections;
     }
