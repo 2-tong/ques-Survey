@@ -270,6 +270,8 @@ public class ServerConnector implements Handler.Callback{
     private String survey2json(Survey s){
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray=new JSONArray();
+        if(s.getUid()==0)
+            return "OK";
         try {
             jsonObject.put("surveyname",s.getTable_name());
             jsonObject.put("except",s.getExcept_n());
@@ -518,7 +520,12 @@ public class ServerConnector implements Handler.Callback{
             case GET_SURVEYS:{
                 Message message1 = new Message();
                 message1.what = 2;
-                message1.obj = get_surveylist(message.arg1);
+                if(message.arg1 != 0)
+                    message1.obj = get_surveylist(message.arg1);
+                else {
+                    LinkedList<Survey> survey_list= new LinkedList();
+                    message1.obj = survey_list;
+                }
                 message1.arg2=message.arg2;
                 ui_handler.sendMessage(message1);
                 break;

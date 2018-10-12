@@ -29,7 +29,7 @@
         <activity android:name=".AnalyzeActivity" />
         <activity android:name=".ChartActivity" />
         <activity android:name=".Chart2Activity" />
-        <activity android:name=".ValueActivity"></activity>
+        <activity android:name=".ValueActivity"/>
     </application>
 
 </manifest>

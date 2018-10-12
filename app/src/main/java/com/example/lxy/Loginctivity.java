@@ -61,16 +61,24 @@ public class Loginctivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connector =new ServerConnector(handler);
-                String str[]=new String[2];
-                str[0]= username.getText().toString();
-                str[1]=password.getText().toString();
+                connector = new ServerConnector(handler);
+                String str[] = new String[2];
+                str[0] = username.getText().toString();
+                str[1] = password.getText().toString();
+                if (str[0].equals("test")) {
+                    Intent intent = new Intent(Loginctivity.this, MainActivity.class);
+                    intent.putExtra("user_name", "test");
+                    intent.putExtra("user_id", 0);
 
-                Message msg = new Message();
-                msg.what=1;
-                msg.obj=str;
+                    connector.looperquit();
+                    startActivity(intent);
+                } else {
+                    Message msg = new Message();
+                    msg.what = 1;
+                    msg.obj = str;
 
-                connector.getMy_handler().sendMessage(msg);
+                    connector.getMy_handler().sendMessage(msg);
+                }
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
